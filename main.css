@@ -1,0 +1,15 @@
+.container {
+    padding: 5%;
+}
+
+.hidden{
+    display: none;
+}
+
+#error-message {
+    color: red;
+}
+
+.results{
+    border: 2px solid black;
+}
