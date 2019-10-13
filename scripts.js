@@ -8,13 +8,13 @@ function watchForm() {
         event.preventDefault();
         $('.search-results').html('');
         $('#error-message').html('');
-        let state = $('#state-input').val().toLowerCase();
+        let state = $('#state-input').val();
         let maxResults = $('#max-results').val();
 
         if (state !== '') {
             getParkList(state, maxResults);
         } else {
-            alert('please enter a valid state');
+            alert('please enter a valid state code');
         }
     })
 }
@@ -45,12 +45,15 @@ function getParkList(state, maxResults = 10) {
     })
         .then(res => displayResults(res))
         .catch(err => {
-            $('#error-message').text(`You broke something: ${err.message}`)
+            $('#error-message').text(`Please try again: ${err.message}`)
         })
 }
 
 function displayResults(resJson) {
-    console.log(resJson);
+    $('#results-list').empty();
+    if(!resJson.data.length) {
+        $('#error-message').text('Please enter a valid state code!')
+    }
     for (let i = 0; i < resJson.data.length; i++) {
       const park = resJson.data[i];
       const description = park.description;
@@ -73,3 +76,4 @@ function displayResults(resJson) {
 
     $('.results').removeClass('hidden');
 }
+
